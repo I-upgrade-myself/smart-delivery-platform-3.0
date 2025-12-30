@@ -1,5 +1,6 @@
 package com.example.order_service.service;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -10,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.example.order_service.entity.Order;
+import com.example.order_service.dto.CreateOrderRequest;
+import com.example.order_service.dto.OrderDto;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -21,17 +23,25 @@ class OrderServiceTest {
 
     @Test
     void testCreateAndGetOrder() {
-        Order order = new Order(null, 1L, 2);
-        Order saved = service.create(order);
+        
+        CreateOrderRequest request = new CreateOrderRequest();
+        request.setCustomerName("John Doe");
+        request.setProduct("Product A");
+        request.setQuantity(2);
+
+     
+        OrderDto saved = service.create(request);
         assertNotNull(saved.getId());
 
-        Order fetched = service.get(saved.getId());
-        assertEquals(1L, fetched.getProductId());
+        OrderDto fetched = service.get(saved.getId());
+        assertNotNull(fetched);
+        assertEquals("Product A", fetched.getProduct());
+        assertEquals(2, fetched.getQuantity());
     }
 
     @Test
     void testListOrders() {
-        List<Order> orders = service.list(0, 10);
+        List<OrderDto> orders = service.list();
         assertNotNull(orders);
     }
 }

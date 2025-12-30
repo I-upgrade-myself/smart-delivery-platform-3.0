@@ -1,5 +1,4 @@
-package com.example.core.dto.order;
-
+package com.example.order_service.dto;
 
 
 public class CreateOrderRequest {
