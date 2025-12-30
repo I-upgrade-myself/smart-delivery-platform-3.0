@@ -1,4 +1,5 @@
-package main.java.com.example.core.dto.order;
+package com.example.core.dto.order;
+
 
 
 import java.time.LocalDateTime;
